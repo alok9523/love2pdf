@@ -34,7 +34,7 @@ def main():
     # PDF tools
     dp.add_handler(CommandHandler("merge_pdf", pdf_tools.merge_pdfs))
     dp.add_handler(CommandHandler("split_pdf", pdf_tools.split_pdf))
-    dp.add_handler(CommandHandler("compress_pdf", pdf_tools.handle_compress_pdf))
+    dp.add_handler(CommandHandler("compress_pdf", pdf_tools.compress_pdf))
     dp.add_handler(CommandHandler("protect_pdf", pdf_tools.handle_protect_pdf))
 
     # File conversion
