@@ -1,22 +1,69 @@
 # bot.py
 
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-import os
-from config import TOKEN
-from handlers import start, file_handler
+import logging
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (
+    Updater, CommandHandler, MessageHandler, Filters, CallbackContext, ConversationHandler
+)
+from config import BOT_TOKEN
+from handlers import start, file_handler, pdf_tools, convert, image_processing, text_processing, security, admin
+from database.db_manager import create_tables
+
+# Enable logging
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+
+# Create database tables
+create_tables()
 
 def main():
-    updater = Updater(token=TOKEN, use_context=True)
+    """Main function to run the Telegram bot."""
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
 
-    # Register handlers
-    dp.add_handler(CommandHandler("start", start.start_command))
-    dp.add_handler(MessageHandler(Filters.document, file_handler.handle_file))
+    # Command handlers
+    dp.add_handler(CommandHandler("start", start.handle_start))
+    dp.add_handler(CommandHandler("help", start.handle_help))
+    dp.add_handler(CommandHandler("admin", admin.handle_admin))
+
+    # File handling
+    dp.add_handler(MessageHandler(Filters.document, file_handler.handle_document))
+    dp.add_handler(MessageHandler(Filters.photo, file_handler.handle_image))
+
+    # PDF tools
+    dp.add_handler(CommandHandler("merge_pdf", pdf_tools.handle_merge_pdf))
+    dp.add_handler(CommandHandler("split_pdf", pdf_tools.handle_split_pdf))
+    dp.add_handler(CommandHandler("compress_pdf", pdf_tools.handle_compress_pdf))
+    dp.add_handler(CommandHandler("protect_pdf", pdf_tools.handle_protect_pdf))
+
+    # File conversion
+    dp.add_handler(CommandHandler("convert", convert.handle_conversion))
+
+    # Image processing
+    dp.add_handler(CommandHandler("image_to_pdf", image_processing.image_to_pdf))
+    dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
+
+    # Text processing
+    dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
+    dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
+
+    # Security features
+    dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
+    dp.add_handler(CommandHandler("decrypt", security.decrypt_file))
+
+    # Error handler
+    dp.add_error_handler(error_handler)
 
     # Start the bot
     updater.start_polling()
     updater.idle()
+
+def error_handler(update: Update, context: CallbackContext):
+    """Logs errors encountered during execution."""
+    logger.error(f"Update {update} caused error {context.error}")
 
 if __name__ == "__main__":
     main()
