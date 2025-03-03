@@ -54,7 +54,7 @@ dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's 
 
 
         # Error handling (Properly defined before usage)
-    dp.add_error_handler(error_handler)
+dp.add_error_handler(error_handler)
 
     # Start the bot
     updater.start_polling()
