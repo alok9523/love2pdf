@@ -1,10 +1,23 @@
-# handlers/admin.py
-
 import os
 import time
 from telegram import Update
 from telegram.ext import CallbackContext
 from config import ADMIN_ID, FILE_STORAGE, LOG_FILE
+
+def handle_admin(update: Update, context: CallbackContext) -> None:
+    """Admin panel command handler."""
+    if update.message.from_user.id != ADMIN_ID:
+        update.message.reply_text("❌ You are not authorized to access the admin panel.")
+        return
+
+    admin_text = (
+        "🔧 **Admin Panel** 🔧\n\n"
+        "/status - Check bot status\n"
+        "/list_users - List registered users\n"
+        "/clear_logs - Clear log files\n"
+        "/delete_old_files - Delete old stored files\n"
+    )
+    update.message.reply_text(admin_text)
 
 def check_bot_status(update: Update, context: CallbackContext) -> None:
     """Check if the bot is running properly."""
