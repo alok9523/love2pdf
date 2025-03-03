@@ -47,12 +47,12 @@ application.add_handler(CommandHandler("txt_to_pdf", convert.txt_to_pdf))
     application.add_handler(CommandHandler("compress_image", image_processing.compress_image))
 
     # Text processing
-    application.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
-    application.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
+application.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
+application.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
 
     # Security features
-    application.add_handler(CommandHandler("encrypt", security.encrypt_file))
-    application.add_handler(CommandHandler("decrypt", security.decrypt_file))
+application.add_handler(CommandHandler("encrypt", security.encrypt_file))
+application.add_handler(CommandHandler("decrypt", security.decrypt_file))
 
     # Error handling
     application.add_error_handler(error_handler)  # Replaced `dp.add_error_handler` with `application.add_error_handler`
