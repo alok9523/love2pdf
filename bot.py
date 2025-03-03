@@ -7,7 +7,7 @@ from telegram.ext import (
 )
 from config import BOT_TOKEN
 from handlers import start, file_handler, pdf_tools, convert, image_processing, text_processing, security, admin
-from database.db_manager import create_tables
+from database.db_manager import init_db 
 
 # Enable logging
 logging.basicConfig(
@@ -16,8 +16,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create database tables
-create_tables()
+
+ # Change create_tables to init_db
+
+# Initialize database tables
+init_db()
 
 def main():
     """Main function to run the Telegram bot."""
