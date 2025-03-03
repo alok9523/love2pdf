@@ -37,8 +37,11 @@ def main():
     application.add_handler(CommandHandler("protect_pdf", pdf_tools.protect_pdf))
 
     # File conversion
-    application.add_handler(CommandHandler("convert", convert.handle_conversion))
+    application.add_handler(CommandHandler("pdf_to_images", convert.pdf_to_images))
 
+application.add_handler(CommandHandler("docx_to_pdf", convert.docx_to_pdf))
+
+application.add_handler(CommandHandler("txt_to_pdf", convert.txt_to_pdf))
     # Image processing
     application.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  
     application.add_handler(CommandHandler("compress_image", image_processing.compress_image))
