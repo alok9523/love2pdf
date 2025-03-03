@@ -7,3 +7,4 @@ reportlab==3.6.12
 pdf2image
 python-docx
 fpdf
+cryptography
