@@ -42,7 +42,7 @@ def main():
 
 # Image processing
 
-dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
+    dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
 
 dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
 
