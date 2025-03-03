@@ -50,7 +50,8 @@ dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx
 
 # Security features
 dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
-    dp.add_handler(CommandHandler("decrypt", security.decrypt_file))
+dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
+
 
     # Error handler
     dp.add_error_handler(error_handler)
