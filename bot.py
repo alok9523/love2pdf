@@ -53,16 +53,12 @@ dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
 dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
 
 
-    # Error handler
+        # Error handling (Properly defined before usage)
     dp.add_error_handler(error_handler)
 
     # Start the bot
     updater.start_polling()
     updater.idle()
-
-def error_handler(update: Update, context: CallbackContext):
-    """Logs errors encountered during execution."""
-    logger.error(f"Update {update} caused error {context.error}")
 
 if __name__ == "__main__":
     main()
