@@ -17,6 +17,11 @@ logger = logging.getLogger(__name__)
 # Initialize database tables
 init_db()
 
+def error_handler(update: Update, context: CallbackContext) -> None:
+    """Log the error and send a message to the user."""
+    logger.error(msg="Exception while handling an update:", exc_info=context.error)
+    update.message.reply_text("An error occurred, please try again later.")
+
 def main():
     """Main function to run the Telegram bot."""
     application = Application.builder().token(BOT_TOKEN).build()
@@ -54,13 +59,7 @@ def main():
     application.add_handler(CommandHandler("decrypt", security.decrypt_file))
 
     # Error handling
-    def error_handler(update: Update, context: CallbackContext) -> None:
-    """Log the error and send a message to the user."""
-    logger.error(msg="Exception while handling an update:", exc_info=context.error)
-    update.message.reply_text("An error occurred, please try again later.")
-
-# Add the error handler in the main function
-application.add_error_handler(error_handler)
+    application.add_error_handler(error_handler)
 
     # Start the bot
     application.run_polling()
