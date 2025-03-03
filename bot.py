@@ -5,7 +5,7 @@ from telegram.ext import (
 )
 from config import BOT_TOKEN
 from handlers import start, file_handler, pdf_tools, convert, image_processing, text_processing, security, admin
-from database.db_manager import init_db  
+from database.db_manager import init_db
 
 # Enable logging
 logging.basicConfig(
@@ -16,10 +16,6 @@ logger = logging.getLogger(__name__)
 
 # Initialize database tables
 init_db()
-
-async def error_handler(update: Update, context: CallbackContext):
-    """Logs errors encountered during execution."""
-    logger.error(f"Update {update} caused error {context.error}")
 
 def main():
     """Main function to run the Telegram bot."""
@@ -56,7 +52,7 @@ def main():
     application.add_handler(CommandHandler("decrypt", security.decrypt_file))
 
     # Error handling
-    application.add_error_handler(error_handler)
+    application.add_error_handler(error_handler)  # Replaced `dp.add_error_handler` with `application.add_error_handler`
 
     # Start the bot
     application.run_polling()
