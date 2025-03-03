@@ -1,0 +1,10 @@
+# handlers/__init__.py
+
+from .start import start_command
+from .file_handler import handle_file
+from .pdf_tools import merge_pdfs, split_pdf, compress_pdf, protect_pdf
+from .convert import convert_file
+from .image_processing import image_to_pdf, compress_image
+from .text_processing import extract_text, txt_to_docx
+from .security import add_password, remove_password, encrypt_file, decrypt_file
+from .admin import admin_panel
