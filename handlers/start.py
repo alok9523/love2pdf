@@ -1,5 +1,3 @@
-# handlers/start.py
-
 from telegram import Update
 from telegram.ext import CallbackContext
 
@@ -9,3 +7,11 @@ def start_command(update: Update, context: CallbackContext) -> None:
     welcome_text += "I am an advanced file bot. Send me a file, and I'll process it for you!"
     
     update.message.reply_text(welcome_text)
+
+def handle_help(update: Update, context: CallbackContext) -> None:
+    """Send a help message."""
+    help_text = "📌 Available commands:\n"
+    help_text += "/start - Start the bot\n"
+    help_text += "/help - Get help information\n"
+    help_text += "/admin - Admin commands\n"
+    update.message.reply_text(help_text)
