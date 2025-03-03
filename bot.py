@@ -44,15 +44,15 @@ def main():
 
     dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
 
-dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
+    dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
 
 # Text processing
-dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
-dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
+    dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
+    dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
 
 # Security features
-dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
-dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
+    dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
+    dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
 
 
         # Error handling (Properly defined before usage)
