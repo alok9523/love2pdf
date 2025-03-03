@@ -17,10 +17,10 @@ logger = logging.getLogger(__name__)
 # Initialize database tables
 init_db()
 
-def error_handler(update: Update, context: CallbackContext) -> None:
+async def error_handler(update: Update, context: CallbackContext) -> None:
     """Log the error and send a message to the user."""
     logger.error(msg="Exception while handling an update:", exc_info=context.error)
-    update.message.reply_text("An error occurred, please try again later.")
+    await update.message.reply_text("An error occurred, please try again later.")
 
 def main():
     """Main function to run the Telegram bot."""
