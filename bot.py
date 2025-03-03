@@ -17,6 +17,10 @@ logger = logging.getLogger(__name__)
 # Initialize database tables
 init_db()
 
+def error_handler(update: Update, context: CallbackContext):
+    """Logs errors encountered during execution."""
+    logger.error(f"Update {update} caused error {context.error}")
+
 def main():
     """Main function to run the Telegram bot."""
     updater = Updater(BOT_TOKEN, use_context=True)
@@ -40,21 +44,20 @@ def main():
     # File conversion
     dp.add_handler(CommandHandler("convert", convert.handle_conversion))
 
-# Image processing
-dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
-dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
+    # Image processing
+    dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
+    dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
 
-# Text processing
-dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
-dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
+    # Text processing
+    dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
+    dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
 
-# Security features
-dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
-dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
+    # Security features
+    dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
+    dp.add_handler(CommandHandler("decrypt", security.decrypt_file))  # Ensure it's properly aligned
 
-
-        # Error handling (Properly defined before usage)
-    dp.add_error_handler(error_handler)
+    # Error handling
+    dp.add_error_handler(error_handler)  # Fixed indentation
 
     # Start the bot
     updater.start_polling()
