@@ -16,7 +16,7 @@ async def handle_file(update: Update, context: CallbackContext) -> None:
     
     # Save file to local storage
     file_path = os.path.join(FILE_STORAGE, file_name)
-    file.download(file_path)
+    await file.download_to_drive(file_path)  # ✅ Fixed
 
     await update.message.reply_text(f"✅ File received: {file_name}\nSaved successfully!")
 
@@ -26,7 +26,7 @@ async def handle_image(update: Update, context: CallbackContext) -> None:
     file = await context.bot.get_file(photo.file_id)
     
     file_path = os.path.join(FILE_STORAGE, f"{photo.file_id}.jpg")
-    file.download(file_path)
+    await file.download_to_drive(file_path)  # ✅ Fixed
 
     if "image_files" not in context.user_data:
         context.user_data["image_files"] = []
