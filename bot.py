@@ -54,7 +54,13 @@ def main():
     application.add_handler(CommandHandler("decrypt", security.decrypt_file))
 
     # Error handling
-    application.add_error_handler(error_handler)  # Replaced `dp.add_error_handler` with `application.add_error_handler`
+    def error_handler(update: Update, context: CallbackContext) -> None:
+    """Log the error and send a message to the user."""
+    logger.error(msg="Exception while handling an update:", exc_info=context.error)
+    update.message.reply_text("An error occurred, please try again later.")
+
+# Add the error handler in the main function
+application.add_error_handler(error_handler)
 
     # Start the bot
     application.run_polling()
