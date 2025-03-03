@@ -35,21 +35,21 @@ def main():
     dp.add_handler(CommandHandler("merge_pdf", pdf_tools.merge_pdfs))
     dp.add_handler(CommandHandler("split_pdf", pdf_tools.split_pdf))
     dp.add_handler(CommandHandler("compress_pdf", pdf_tools.compress_pdf))
-    dp.add_handler(CommandHandler("protect_pdf", pdf_tools.handle_protect_pdf))
+    dp.add_handler(CommandHandler("protect_pdf", pdf_tools.protect_pdf))
 
     # File conversion
     dp.add_handler(CommandHandler("convert", convert.handle_conversion))
 
-    # Image processing
-    dp.add_handler(CommandHandler("image_to_pdf", image_processing.image_to_pdf))
-    dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
+# Image processing
+dp.add_handler(CommandHandler("image_to_pdf", image_processing.images_to_pdf))  # Correct function name
+dp.add_handler(CommandHandler("compress_image", image_processing.compress_image))
 
-    # Text processing
-    dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
-    dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
+# Text processing
+dp.add_handler(CommandHandler("extract_text", text_processing.extract_text_from_pdf))
+dp.add_handler(CommandHandler("txt_to_docx", text_processing.convert_txt_to_docx))
 
-    # Security features
-    dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
+# Security features
+dp.add_handler(CommandHandler("encrypt", security.encrypt_file))
     dp.add_handler(CommandHandler("decrypt", security.decrypt_file))
 
     # Error handler
