@@ -1,5 +1,3 @@
-# bot.py
-
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -16,9 +14,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
- # Change create_tables to init_db
-
 # Initialize database tables
 init_db()
 
@@ -28,9 +23,7 @@ def main():
     dp = updater.dispatcher
 
     # Command handlers
-   
-dp.add_handler(CommandHandler("start", start.start_command))
-
+    dp.add_handler(CommandHandler("start", start.start_command))
     dp.add_handler(CommandHandler("help", start.handle_help))
     dp.add_handler(CommandHandler("admin", admin.handle_admin))
 
