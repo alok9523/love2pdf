@@ -28,7 +28,9 @@ def main():
     dp = updater.dispatcher
 
     # Command handlers
-    dp.add_handler(CommandHandler("start", start.handle_start))
+   
+dp.add_handler(CommandHandler("start", start.start_command))
+
     dp.add_handler(CommandHandler("help", start.handle_help))
     dp.add_handler(CommandHandler("admin", admin.handle_admin))
 
