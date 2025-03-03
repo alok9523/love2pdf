@@ -28,7 +28,7 @@ def main():
     dp.add_handler(CommandHandler("admin", admin.handle_admin))
 
     # File handling
-    dp.add_handler(MessageHandler(Filters.document, file_handler.handle_document))
+    dp.add_handler(MessageHandler(Filters.document, file_handler.handle_file))
     dp.add_handler(MessageHandler(Filters.photo, file_handler.handle_image))
 
     # PDF tools
