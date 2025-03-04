@@ -6,9 +6,9 @@ from telegram import Update
 from telegram.ext import CallbackContext
 from config import FILE_STORAGE
 
-async def pdf_to_images(update: Update, context: CallbackContext) -> None:
+async def pdf_to_images(update: Update, context: CallbackContext):
     """Converts a PDF to images (PNG format)."""
-    if not context.user_data.get("pdf_file"):
+    if not context.user_data or "pdf_file" not in context.user_data:
         await update.message.reply_text("Please send a PDF first.")
         return
 
@@ -23,9 +23,9 @@ async def pdf_to_images(update: Update, context: CallbackContext) -> None:
 
     await update.message.reply_text("✅ PDF converted to images!")
 
-async def docx_to_pdf(update: Update, context: CallbackContext) -> None:
+async def docx_to_pdf(update: Update, context: CallbackContext):
     """Converts a DOCX file to PDF."""
-    if not context.user_data.get("docx_file"):
+    if not context.user_data or "docx_file" not in context.user_data:
         await update.message.reply_text("Please send a DOCX file first.")
         return
 
@@ -48,9 +48,9 @@ async def docx_to_pdf(update: Update, context: CallbackContext) -> None:
 
     await update.message.reply_text("✅ DOCX converted to PDF!")
 
-async def txt_to_pdf(update: Update, context: CallbackContext) -> None:
+async def txt_to_pdf(update: Update, context: CallbackContext):
     """Converts a TXT file to PDF."""
-    if not context.user_data.get("txt_file"):
+    if not context.user_data or "txt_file" not in context.user_data:
         await update.message.reply_text("Please send a TXT file first.")
         return
 
