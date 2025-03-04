@@ -1,5 +1,3 @@
-# handlers/convert.py
-
 import os
 from pdf2image import convert_from_path
 from docx import Document
@@ -8,10 +6,10 @@ from telegram import Update
 from telegram.ext import CallbackContext
 from config import FILE_STORAGE
 
-def pdf_to_images(update: Update, context: CallbackContext) -> None:
+async def pdf_to_images(update: Update, context: CallbackContext) -> None:
     """Converts a PDF to images (PNG format)."""
     if not context.user_data.get("pdf_file"):
-        update.message.reply_text("Please send a PDF first.")
+        await update.message.reply_text("Please send a PDF first.")
         return
 
     file_path = context.user_data["pdf_file"]
@@ -20,14 +18,15 @@ def pdf_to_images(update: Update, context: CallbackContext) -> None:
     for i, img in enumerate(images):
         image_path = os.path.join(FILE_STORAGE, f"page_{i+1}.png")
         img.save(image_path, "PNG")
-        update.message.reply_photo(photo=open(image_path, "rb"))
+        with open(image_path, "rb") as image_file:
+            await update.message.reply_photo(photo=image_file)
 
-    update.message.reply_text("✅ PDF converted to images!")
+    await update.message.reply_text("✅ PDF converted to images!")
 
-def docx_to_pdf(update: Update, context: CallbackContext) -> None:
+async def docx_to_pdf(update: Update, context: CallbackContext) -> None:
     """Converts a DOCX file to PDF."""
     if not context.user_data.get("docx_file"):
-        update.message.reply_text("Please send a DOCX file first.")
+        await update.message.reply_text("Please send a DOCX file first.")
         return
 
     file_path = context.user_data["docx_file"]
@@ -44,13 +43,15 @@ def docx_to_pdf(update: Update, context: CallbackContext) -> None:
 
     pdf.output(pdf_path)
 
-    update.message.reply_document(document=open(pdf_path, "rb"), filename="converted.pdf")
-    update.message.reply_text("✅ DOCX converted to PDF!")
+    with open(pdf_path, "rb") as pdf_file:
+        await update.message.reply_document(document=pdf_file, filename="converted.pdf")
 
-def txt_to_pdf(update: Update, context: CallbackContext) -> None:
+    await update.message.reply_text("✅ DOCX converted to PDF!")
+
+async def txt_to_pdf(update: Update, context: CallbackContext) -> None:
     """Converts a TXT file to PDF."""
     if not context.user_data.get("txt_file"):
-        update.message.reply_text("Please send a TXT file first.")
+        await update.message.reply_text("Please send a TXT file first.")
         return
 
     file_path = context.user_data["txt_file"]
@@ -69,5 +70,7 @@ def txt_to_pdf(update: Update, context: CallbackContext) -> None:
 
     pdf.output(pdf_path)
 
-    update.message.reply_document(document=open(pdf_path, "rb"), filename="converted.pdf")
-    update.message.reply_text("✅ TXT converted to PDF!")
+    with open(pdf_path, "rb") as pdf_file:
+        await update.message.reply_document(document=pdf_file, filename="converted.pdf")
+
+    await update.message.reply_text("✅ TXT converted to PDF!")
